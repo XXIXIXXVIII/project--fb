@@ -1,0 +1,16 @@
+.formLogin{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1)
+}
+.TippyInput{
+  box-shadow: 0 0 0 1px rgba(139, 3, 0, .75), 0 1px 10px rgba(0, 0, 0, .35);
+}
+
+.createReel{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/99gc6mp2LZM.png);
+  background-position: 0px -26px;
+  background-size: 26px 72px;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}

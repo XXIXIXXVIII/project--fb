@@ -1,0 +1,88 @@
+.slick-prev:before {
+  content:  none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.slick-next:before{
+  content:  none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.like{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/okpfsivyfMI.png);
+  background-position: 0px -432px;
+  background-size: 26px 946px;
+  background-repeat: no-repeat;
+  width: 18px;
+  height: 18px;
+  -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%) hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+
+.comment{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/okpfsivyfMI.png);
+  background-position: 0px -392px;
+  background-size: 26px 946px;
+  background-repeat: no-repeat;
+  width: 18px;
+  height: 18px;
+  -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%) hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+
+.share{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/okpfsivyfMI.png);
+  background-position: 0px -452px;
+  background-size: 26px 946px;
+  background-repeat: no-repeat;
+  width: 18px;
+  height: 18px;
+  -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%) hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+
+.giftBox{
+  height: 36px;
+  width: 36px;
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/y4/r/UnBhmeLwJlr.png);
+  background-position: 0 0;
+  background-size: 38px 214px;
+}
+
+.shadowUser{
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.settingUserIcon{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/y6/r/n3C6Sb13iKq.png);
+  background-size: 190px 168px;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.heplpUser{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yT/r/aGssPWkf7-8.png);
+  background-size: 42px 476px;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
+.darkLight{
+    background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/sSNSaBAnmN4.png);
+    background-position: 0px -364px;
+    background-size: 26px 618px;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.logOut{
+  background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/5Jb0as3qHBF.png);
+  background-size: 26px 924px;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
