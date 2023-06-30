@@ -1,21 +1,35 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import facebookLogo from "../../assets/Auth/fbLogo.png";
 import plusIcon from "../../assets/Auth/plusIcon.svg";
 import "./index.css";
 import Signup from "./Signup";
+import { useAppSelector } from "../../redux/hook";
+import { useNavigate } from "react-router-dom";
+import FormLogin from "./FormLogin";
+
 
 export default function Login() {
-  const [eyePassword, setEyePassword] = useState(true);
-  const [showSignup, setShowSignup] = useState(false);
-  const [password, setPassword] = useState("");
+  const showSignup = useAppSelector(state=>state.showSignup.showSignup)
+  const navigate = useNavigate()
+  const currentUser = useAppSelector(state=>state.auth.currentUser)
 
-  console.log(password.trim().split("").length > 1);
+  useEffect(()=>{
+    const timeout = setTimeout(()=>{
+      if(currentUser){
+        if(Object.keys(currentUser).length>0){console.log("object");navigate('/')}
+      }
+      }
+      ,500)
+   return ()=>clearTimeout(timeout)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[currentUser])
+
 
   return (
     <div>
       {showSignup && (
         <div className="fixed z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Signup showSignup={showSignup} setShowSignup={setShowSignup} />
+          <Signup />
         </div>
       )}
       {showSignup && (
@@ -60,63 +74,18 @@ export default function Login() {
           </div>
           <div></div>
           <div className="w-[396px] mt-16">
-            <div className="pt-[10px] pb-6 rounded-lg formLogin bg-white">
-              <div className="px-4">
-                <div className="border-b border-gray-300 pb-5">
-                  <div className="py-[6px]">
-                    <input
-                      className="input-auth w-full h-[51.6px] mx-auto"
-                      placeholder="Email hoặc số điện thoại"
-                    />
-                  </div>
-                  <div className="py-[6px] relative z-0">
-                    <input
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                      type={eyePassword ? "password" : "text"}
-                      className="input-auth w-full h-[51.6px] mx-auto"
-                      placeholder="Mật khẩu"
-                    />
-                    <div
-                      onClick={() => setEyePassword(!eyePassword)}
-                      className="w-[28px] h-[28px] absolute z-0 right-4 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full hover:bg-[rgba(0,0,0,.05)] cursor-pointer active:bg-[background-color: rgba(0,0,0,.15)]"
-                    >
-                      <img
-                        className=""
-                        src={
-                          password.trim().split("").length > 1 ? eyePassword
-                            ? "https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/je5FEJkU1_K.png"
-                            : "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/swFqSxKYa5M.png"
-                        :""}
-                      />
-                    </div>
-                  </div>
-                  <div className="pt-[6px]">
-                    <button className="btn-primary w-full text-xl ">
-                      Đăng nhập
-                    </button>
-                  </div>
-                  <button className="text-[#1877f2] text-sm mt-4 text-center w-full hover:underline">
-                    Quên mật khẩu?
-                  </button>
-                </div>
-                <div className="w-full py-5">
-                  <button
-                    onClick={() => setShowSignup(true)}
-                    className="py-3 px-4 bg-[#42b72a] text-[17px] text-white font-semibold rounded-lg focus:outline-none mx-auto block text-center"
-                  >
-                    Tạo tài khoản mới
-                  </button>
-                </div>
-              </div>
-            </div>
+            <FormLogin/>
             <div className="text-center mt-[28px] text-sm">
-              <span className="font-bold hover:underline cursor-pointer">
-                Tạo Trang
-              </span>{" "}
-              dành cho người nổi tiếng, thương hiệu hoặc doanh nghiệp.
-            </div>
+                <span className="font-bold hover:underline cursor-pointer">
+                  Tạo Trang
+                </span>
+                dành cho người nổi tiếng, thương hiệu hoặc doanh nghiệp.
+              </div>
           </div>
+
+
+
+
         </div>
       </div>
     </div>

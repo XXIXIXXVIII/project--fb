@@ -1,7 +1,7 @@
 import threeDot from '../../assets/Home/threeDot.svg'
 import { useState } from 'react';
 import {RxDotFilled} from 'react-icons/rx'
-import Avatar from './Avatar';
+import Avatar from '../abc/Avatar';
 
 export default function Menu() {
   const [pick, setPick] = useState("all")

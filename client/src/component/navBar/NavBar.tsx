@@ -5,16 +5,17 @@ import arrowUp from "../../assets/navBar/arrowUp.svg";
 import { useState } from "react";
 import "../home/index.css"
 import ShotFooter from "../footer/ShotFooter";
+import Avatar from "../abc/Avatar";
+import { useAppSelector } from "../../redux/hook";
 
 export default function NavBar() {
   const [numberNav, setNumberNav] = useState(6);
   const [showScroll, setShowScroll] = useState(false);
+  const curentUser = useAppSelector((state) => state.auth.currentUser);
+  console.log(curentUser);
 
   const navBar: { img: string; name: string; link?: string }[] = [
-    {
-      img: "https://img.meta.com.vn/Data/image/2021/10/12/hinh-anh-lisa-blackpink-2.jpg",
-      name: "lisa",
-    },
+
     {
       img: "https://cdn4.iconfinder.com/data/icons/facebook-and-social-media-2/64/Facebook_and_Social_Media-11-512.png",
       name: "Bạn bè",
@@ -70,6 +71,12 @@ export default function NavBar() {
   return (
     <div style={{overflowY:showScroll?'scroll':'hidden'}} onMouseOver={()=>setShowScroll(true)} onMouseOut={()=>setShowScroll(false)} className="navBar h-[690px]">
       <div className="pl-2 border-b border-gray-300 ">
+      <div
+            className="flex items-center pl-2 gap-2 h-11 hover:bg-gray-200 font-medium text-[15px] rounded cursor-pointer mt-2"
+          >
+            <Avatar size={'w-9'}/>
+            {curentUser?.firstName} {curentUser?.lastName}
+          </div>
         {navBar.slice(0, numberNav).map((item, index) => (
           <div
             key={index}

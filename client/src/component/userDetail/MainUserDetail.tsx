@@ -1,5 +1,5 @@
 
-import Post from '../home/Post'
+import Post from '../abc/Post'
 
 export default function MainUserDetail() {
   return (

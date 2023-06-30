@@ -1,10 +1,18 @@
-import Avatar from "./Avatar";
+import Avatar from "../abc/Avatar";
 import "../home/index.css";
 import {GrNext} from 'react-icons/gr'
 import ShotFooter from "../footer/ShotFooter";
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from "../../redux/hook";
+import { logoutRedux } from "../../redux/authSlice";
 
 export default function SettingUserTippy() {
+
+  const distpatch = useAppDispatch()
+  const handleLogout = ()=>{
+    distpatch(logoutRedux())
+  }
+
   return (
     <div className="bg-white p-[16px] ">
       <div className="shadowUser bg-white w-[338px] p-2 rounded-lg ">
@@ -69,7 +77,7 @@ export default function SettingUserTippy() {
       </div>
 
 
-      <div className="p-2 hover:bg-gray-200 rounded-lg flex items-center justify-between cursor-pointer">
+      <Link to={'/login'} onClick={handleLogout} className="p-2 hover:bg-gray-200 rounded-lg flex items-center justify-between cursor-pointer">
         <div className="font-semibold text-[15px] flex gap-2 items-center">
           <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center  ">
             <div
@@ -79,7 +87,7 @@ export default function SettingUserTippy() {
           </div>
           Đăng xuất
         </div>
-      </div>
+      </Link>
 
       <div><ShotFooter/></div>
     </div>

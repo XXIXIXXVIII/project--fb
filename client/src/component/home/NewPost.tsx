@@ -1,4 +1,4 @@
-import Avatar from "../header/Avatar";
+import Avatar from "../abc/Avatar";
 
 export default function NewPost() {
   return (

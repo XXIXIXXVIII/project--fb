@@ -14,6 +14,7 @@ export default function UserDetail() {
       <div className="border-b border-gray-200 shadow-2xl">
         <HeaderUserDetail />
       </div>
+      <span style={{backgroundImage:"url('https://static.xx.fbcdn.net/images/emoji.php/v9/t0/1.5/20/1f600.png')"}}>abc</span>
       <div className="bg-gray-200 relative">
         <div className="flex w-[1030px] mx-auto pt-5">
           <div className=" basis-[41%] mt-4 top-0 left-0 inset-0 sticky bottom-0 h-fit">

@@ -1,7 +1,7 @@
 import videoCall from "../../assets/Home/videoCall.svg";
 import threeDot from "../../assets/Home/threeDot.svg";
 import searchIcon from "../../assets/Home/searchIcon.svg";
-import Avatar from "../header/Avatar";
+import Avatar from "../abc/Avatar";
 import { RxDotFilled } from "react-icons/rx";
 import { useState } from "react";
 

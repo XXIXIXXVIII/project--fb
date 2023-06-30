@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react/headless';
 import bell from "../../assets/HeaderDefault/bell.svg";
 import mess from "../../assets/HeaderDefault/mess.svg";
 import menu from "../../assets/HeaderDefault/menu.svg";
-import Avatar from "./Avatar";
+import Avatar from "../abc/Avatar";
 import SettingUserTippy from "./SettingUserTippy";
 import Menu from "./Menu";
 
@@ -13,7 +13,7 @@ import Menu from "./Menu";
 export default function NavRight() {
   const [showSettingUserTippy, setShowSettingUserTippy] = useState(false);
   const [showMenuTippy, setShowMenuTippy] = useState(false);
-  console.log(showSettingUserTippy);
+  
 
   return (
     <div className="flex gap-2 text-black">

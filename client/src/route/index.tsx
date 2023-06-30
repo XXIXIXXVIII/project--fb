@@ -16,16 +16,17 @@ interface Route {
 
 const publicRoute: Route[] = [
   { component: Login, path: "/login", layout: FooterOnly },
+
+];
+
+const privateRoute: Route[] = [
+  { component: Home, path: "/", layout: DefaultLayout },
   { component: Login, path: "/reel", layout: Reel },
   { component: VideoList, path: "/watch/:nav", layout: HeaderOnly },
   { component: VideoList, path: "/watch", layout: HeaderOnly },
   { component: UserDetail, path: "/user/:id", layout: HeaderOnly },
   { component: Friend, path: "/friends/:nav", layout: HeaderOnly },
   { component: Friend, path: "/friends", layout: HeaderOnly },
-];
-
-const privateRoute: Route[] = [
-  { component: Home, path: "/", layout: DefaultLayout },
 ];
 
 export { publicRoute, privateRoute };
