@@ -3,15 +3,19 @@ import facebookLogo from "../../assets/Auth/fbLogo.png";
 import plusIcon from "../../assets/Auth/plusIcon.svg";
 import "./index.css";
 import Signup from "./Signup";
-import { useAppSelector } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { useNavigate } from "react-router-dom";
 import FormLogin from "./FormLogin";
+import Error from "../../component/Alert/Error";
+import Loading from "../../component/Alert/Loading";
+import { resetAuthRedux } from "../../redux/authSlice";
 
 
 export default function Login() {
   const showSignup = useAppSelector(state=>state.showSignup.showSignup)
   const navigate = useNavigate()
-  const currentUser = useAppSelector(state=>state.auth.currentUser)
+  const dispatch = useAppDispatch()
+  const {currentUser,error , isFetching} = useAppSelector(state=>state.auth)
 
   useEffect(()=>{
     const timeout = setTimeout(()=>{
@@ -24,6 +28,17 @@ export default function Login() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[currentUser])
 
+  useEffect(()=>{
+    const timeout = setTimeout(()=>{
+      if(error||isFetching){
+        dispatch(resetAuthRedux())
+      }
+      }
+      ,4000)
+   return ()=>clearTimeout(timeout)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[error, isFetching])
+
 
   return (
     <div>
@@ -35,6 +50,7 @@ export default function Login() {
       {showSignup && (
         <div className="absolute w-full h-full bg-[rgba(255,255,255,.8)] z-10"></div>
       )}
+
       <div className="bg-[#f0f2f5] w-screen overflow-hidden pt-[92px] pb-[132px] ">
         <div className="w-[980px] mx-auto flex justify-between">
           <div>

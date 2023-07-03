@@ -8,13 +8,14 @@ interface State {
     lastName?:string
   }
   isFetching:boolean,
-  error:boolean|string|[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error:any,
 }
 
 const initialState : State = {
   currentUser:{},
   isFetching: false,
-  error: false,
+  error: null,
 }
 
 const authSlice = createSlice({
@@ -29,9 +30,12 @@ const authSlice = createSlice({
       .addCase(loginRedux.fulfilled, (state, actions) => {
         state.currentUser = actions.payload;
       })
-      .addCase(loginRedux.rejected, (state) => {
-        state.error = true;
+      .addCase(loginRedux.rejected, (state, actions) => {
+        console.log(actions.error.message);
+        state.isFetching = false
+        state.error = actions.error.message;
       })
+
       .addCase(signupRedux.pending, (state) => {
         state.isFetching = true;
       })
@@ -40,26 +44,36 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(signupRedux.rejected, (state) => {
-        state.error = true;
+        
+        state.error = undefined;
       })
       .addCase(logoutRedux.fulfilled,(state)=>{
         state.currentUser = {}
         state.isFetching = false
-        state.error = false
+        state.error = null
+      })
+      .addCase(resetAuthRedux.fulfilled,(state)=>{
+        state.isFetching = false
+        state.error = null
       })
 });
 
 export const loginRedux = createAsyncThunk(
   "auth/login",
   async ({ gmail, password }: { gmail: string; password: string }) => {
+    console.log( gmail, password);
     try {
       const result = await publicAxios.post("/auth/login", { gmail, password });
       const data = result.data;
       localStorage.setItem("jwtToken", JSON.stringify(data.accessToken));
       return data.user;
-    } catch (error) {
-      console.log(error);
-      return error;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      if(error.response.data.message[0]!=="E"){
+        throw new Error(error.response.data.message[0])
+      }else{
+        throw new Error(error.response.data.message)
+      }
     }
   }
 );
@@ -90,6 +104,7 @@ export const signupRedux = createAsyncThunk(
         password,
         sex,
       });
+      console.log(result);
       localStorage.setItem("jwtToken", JSON.stringify(result.data.accessToken));
       return result.data.user;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -100,6 +115,9 @@ export const signupRedux = createAsyncThunk(
   }
 );
 
+export const resetAuthRedux = createAsyncThunk("auth/resetAuthRedux", () => {
+  return
+});
 export const logoutRedux = createAsyncThunk("auth/logout", () => {
   return
 });

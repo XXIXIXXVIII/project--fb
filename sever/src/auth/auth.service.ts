@@ -2,7 +2,9 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  Res 
 } from '@nestjs/common';
+import { Response } from 'express';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/typeorm/entity/User.entity';
@@ -20,20 +22,26 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDTO){
-    const user = await this.usersRepository.findOne({
-      where: { gmail: loginDto.gmail },
-    });
-    console.log("object");
-    if (!user) {
-      return new NotFoundException('Email or password not found');
+
+    try {
+      const user = await this.usersRepository.findOne({
+        where: { gmail: loginDto.gmail },
+      });
+      
+      if (!user) {
+        throw new NotFoundException('Email or password not found');
+      }
+      const checkPassword = await argon.verify(user.password, loginDto.password);
+      if (!checkPassword) {
+        throw new NotFoundException('Email or password not found');
+      }
+      const token = await this.refeshJwtToken(user.id, user.gmail)
+      delete user.password
+      return {user, accessToken: await this.signJwtToken(user.id, user.gmail), refeshToken: token}
+    } catch (error) {
+      console.log(error);
     }
-    
-    const checkPassword = await argon.verify(user.password, loginDto.password);
-    if (!checkPassword) {
-      return new NotFoundException('Email or password not found');
-    }
-    delete user.password
-    return {user, accessToken: await this.signJwtToken(user.id, user.gmail)}
+
   }
 
   async signup(signupDto: SignupDTO) {
@@ -41,6 +49,7 @@ export class AuthService {
       const checkGmail = await this.usersRepository.findOne({
         where: { gmail: signupDto.gmail },
       });
+    
       if (checkGmail) {
         throw new BadRequestException('email has been registered');
       }
@@ -55,9 +64,13 @@ export class AuthService {
         birthday: signupDto.birthday,
       });
       await this.usersRepository.save(user);
+      const token = await this.refeshJwtToken(user.id, user.gmail)
+
+
       delete user.password
-      return {user, accessToken: this.signJwtToken(user.id, user.gmail)}
+      return {user, accessToken: await this.signJwtToken(user.id, user.gmail), refeshToken: token}
     } catch (error) {
+      console.log(error);
       throw new BadRequestException(error);
     }
   }
@@ -71,7 +84,17 @@ export class AuthService {
       expiresIn: '10m',
       secret: this.configService.get('JWT_SECRET')
     })
-
+    return jwtString
+  }
+ async refeshJwtToken (id:number, gmail:string):Promise<string>{
+    const payload ={
+      sub: id,
+      gmail
+    }   
+    const jwtString = await this.jwtService.signAsync(payload,{
+      expiresIn: '365d',
+      secret: this.configService.get('JWT_SECRET')
+    })
     return jwtString
   }
 }

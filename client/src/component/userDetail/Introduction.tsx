@@ -6,13 +6,13 @@ import { GiHandBag, GiGraduateCap } from "react-icons/gi";
 import { IoLocationSharp } from "react-icons/io5";
 import Lisa from "../../assets/UserDetail/Lisa.mp4";
 
-export default function Introduction() {
+export default function Introduction({bio}:{bio:string|undefined}) {
 
   return (
     <div className="">
       <div className="text-xl font-bold">Giới thiệu</div>
       <div className="text-center text-[15px] p-[6px] pb-4 border-b border-gray-300">
-        She's Lisa Manoban !! :3
+        {bio}
       </div>
       <div className="">
         <div className="flex items-center gap-2 mt-[16px]">

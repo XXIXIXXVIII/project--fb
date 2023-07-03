@@ -1,5 +1,4 @@
-import shopsPick from "../../assets/HeaderDefault/shopsPick.svg";
-import videosPick from "../../assets/HeaderDefault/videosPick.svg";
+import {navBar} from "../../assets/Const/Const"
 import arrowDown from "../../assets/navBar/arrowDown.svg";
 import arrowUp from "../../assets/navBar/arrowUp.svg";
 import { useState } from "react";
@@ -12,61 +11,7 @@ export default function NavBar() {
   const [numberNav, setNumberNav] = useState(6);
   const [showScroll, setShowScroll] = useState(false);
   const curentUser = useAppSelector((state) => state.auth.currentUser);
-  console.log(curentUser);
-
-  const navBar: { img: string; name: string; link?: string }[] = [
-
-    {
-      img: "https://cdn4.iconfinder.com/data/icons/facebook-and-social-media-2/64/Facebook_and_Social_Media-11-512.png",
-      name: "Bạn bè",
-    },
-    { img: videosPick, name: "Watch" },
-    {
-      img: "https://static.xx.fbcdn.net/rsrc.php/v3/yT/r/3dN1QwOLden.png",
-      name: "Bảng feed (Gần đây nhất)",
-    },
-    {
-      img: "https://icon-library.com/images/group-icon-png/group-icon-png-15.jpg",
-      name: "Nhóm",
-    },
-    { img: shopsPick, name: "Marketplace" },
-    {
-      img: "https://cdn.icon-icons.com/icons2/2760/PNG/512/time_clock_icon_176366.png",
-      name: "Kỷ niệm",
-    },
-    {
-      img: "https://cdn-icons-png.flaticon.com/128/10263/10263197.png",
-      name: "Đã lưu",
-    },
-    {
-      img: "	https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/xH4w-lk44we.png",
-      name: "Đơn đặt hàng và thanh toán",
-    },
-    {
-      img: "https://cdn3.iconfinder.com/data/icons/blood/154/blood-drop-medicine-red-512.png",
-      name: "Hiến máu",
-    },
-    {
-      img: "https://static.xx.fbcdn.net/rsrc.php/v3/y-/r/VaQGECnx1Us.png",
-      name: "Hoạt động quảng cáo gần đây",
-    },
-    {
-      img: "https://t3.ftcdn.net/jpg/05/32/20/62/360_F_532206256_dkA9pSV9eHgIdqXbSbXJQDduCYfhgX7b.webp",
-      name: "Messenger",
-    },
-    {
-      img: "https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/-ZRs50L5kHA.png",
-      name: "Messenger nhí",
-    },
-    {
-      img: "https://static.xx.fbcdn.net/rsrc.php/v3/yn/r/9iacGJP1ses.png",
-      name: "Meta Business Suite",
-    },
-    {
-      img: "https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/mruGO7HkgS-.png",
-      name: "Sự kiện",
-    },
-  ];
+  const avatar = useAppSelector((state) => state.auth.currentUser?.avatar);
 
   return (
     <div style={{overflowY:showScroll?'scroll':'hidden'}} onMouseOver={()=>setShowScroll(true)} onMouseOut={()=>setShowScroll(false)} className="navBar h-[690px]">
@@ -74,7 +19,7 @@ export default function NavBar() {
       <div
             className="flex items-center pl-2 gap-2 h-11 hover:bg-gray-200 font-medium text-[15px] rounded cursor-pointer mt-2"
           >
-            <Avatar size={'w-9'}/>
+            <Avatar size={'w-9'} avarta={avatar}/>
             {curentUser?.firstName} {curentUser?.lastName}
           </div>
         {navBar.slice(0, numberNav).map((item, index) => (

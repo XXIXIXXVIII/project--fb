@@ -7,12 +7,14 @@ import menu from "../../assets/HeaderDefault/menu.svg";
 import Avatar from "../abc/Avatar";
 import SettingUserTippy from "./SettingUserTippy";
 import Menu from "./Menu";
+import { useAppSelector } from '../../redux/hook';
 
 
 
 export default function NavRight() {
   const [showSettingUserTippy, setShowSettingUserTippy] = useState(false);
   const [showMenuTippy, setShowMenuTippy] = useState(false);
+  const avatar = useAppSelector((state) => state.auth.currentUser?.avatar);
   
 
   return (
@@ -54,7 +56,7 @@ export default function NavRight() {
     )}          
     >
       <div onClick={() => setShowSettingUserTippy(!showSettingUserTippy)}>
-        <Avatar size={"w-10"}/>
+        <Avatar size={"w-10"} avarta={avatar}/>
       </div>
     </Tippy>
   </div>

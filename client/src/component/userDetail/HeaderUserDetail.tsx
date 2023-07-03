@@ -5,7 +5,7 @@ import {useState} from 'react'
 import AvatarUserStatus from "./AvatarUserStatus";
 
 
-export default function HeaderUserDetail() {
+export default function HeaderUserDetail({coverImage, avarta, firstName, lastName}:{coverImage:string|undefined, avarta:string|undefined, firstName:string|undefined, lastName:string|undefined}) {
   const [pickNav, setPickNav] = useState<string>("Bài viết")
 
   const navUserDetail:{id:number, name:string, icon?:JSX.Element}[] = [
@@ -17,6 +17,7 @@ export default function HeaderUserDetail() {
     {id:6, name: "Thể thao" },
     {id:7, icon:<BsFillCaretDownFill/>, name: "Xem thêm" },
   ];
+  console.log(avarta);
 
   const navUserCss = 'text-[#65676B] rounded hover:bg-gray-200' 
   const navUserCssPick = 'text-[hsl(214,89%,52%)] border-b-4 border-[hsl(214,89%,52%)]' 
@@ -28,7 +29,7 @@ export default function HeaderUserDetail() {
           style={{
             filter:"blur(10px)",
             backgroundImage:
-              "url(http://papers.co/wallpaper/papers.co-hu22-girl-kpop-lisa-blackpink-35-3840x2160-4k-wallpaper.jpg)",
+              `url(${coverImage})`,
           }}
           className="coverPhoto w-full h-full absolute -z-20 "
         ></div>
@@ -36,18 +37,18 @@ export default function HeaderUserDetail() {
         <div className="w-[1095px] h-full flex items-center mx-auto justify-center overflow-hidden rounded-b-lg">
           <img
             className="object-cover w-full"
-            src="http://papers.co/wallpaper/papers.co-hu22-girl-kpop-lisa-blackpink-35-3840x2160-4k-wallpaper.jpg"
+            src={`${coverImage}`}
           />
         </div>
       </div>
       <div className="w-[1030px] mx-auto ">
         <div className=" relative flex justify-between items-center mb-5 ">
           <div className=" flex items-center gap-5  min-h-[84px]">
-            <div className=" absolute bottom-0"><AvatarUserStatus size={164} border={5} sizeBig={16}/></div>
+            <div className=" absolute bottom-0"><AvatarUserStatus avarta={avarta} size={164} border={5} sizeBig={16}/></div>
 
 
             <div className="w-[180px]"></div>
-            <div className="text-[32px] font-bold mt-8 mb-4">Lisa Manoban <span className="text-[28px] font-normal">(Lili)</span></div>
+            <div className="text-[32px] font-bold mt-8 mb-4">{firstName} {lastName} <span className="text-[28px] font-normal">(Lili)</span></div>
           </div>
           <div className="flex gap-2 items-center text-[15px]"><div><button className="btn-primary flex items-center gap-2 "><FaUserPlus size={20}/> Thêm bạn bè</button></div>
           <div><button className="btn-second flex items-center gap-2"><BsMessenger/> Nhắn tin</button></div>

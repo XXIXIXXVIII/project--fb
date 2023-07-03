@@ -77,7 +77,7 @@ export default function SettingUserTippy() {
       </div>
 
 
-      <Link to={'/login'} onClick={handleLogout} className="p-2 hover:bg-gray-200 rounded-lg flex items-center justify-between cursor-pointer">
+      <div onClick={handleLogout} className="p-2 hover:bg-gray-200 rounded-lg flex items-center justify-between cursor-pointer">
         <div className="font-semibold text-[15px] flex gap-2 items-center">
           <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center  ">
             <div
@@ -87,7 +87,7 @@ export default function SettingUserTippy() {
           </div>
           Đăng xuất
         </div>
-      </Link>
+      </div>
 
       <div><ShotFooter/></div>
     </div>

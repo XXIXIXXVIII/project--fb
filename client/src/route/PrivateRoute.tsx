@@ -8,8 +8,7 @@ import Signup from "../page/Auth/Signup";
 const PrivateRoute = () => {
   const currentUser = useAppSelector((state) => state.auth.currentUser);
   const showSignUp = useAppSelector((state) => state.showSignup.showSignup);
-  console.log(currentUser && Object.keys(currentUser).length > 0)
-  console.log("object");
+
   return currentUser && Object.keys(currentUser).length > 0 ? (
     <Outlet />
   ) : (
