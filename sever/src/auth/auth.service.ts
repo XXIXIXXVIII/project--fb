@@ -39,7 +39,7 @@ export class AuthService {
       delete user.password
       return {user, accessToken: await this.signJwtToken(user.id, user.gmail), refeshToken: token}
     } catch (error) {
-      console.log(error);
+      throw new NotFoundException('Email or password not found');
     }
 
   }
@@ -65,28 +65,31 @@ export class AuthService {
       });
       await this.usersRepository.save(user);
       const token = await this.refeshJwtToken(user.id, user.gmail)
+      const user1 = await this.usersRepository.findOne({where:{id:user.id}})
 
 
-      delete user.password
-      return {user, accessToken: await this.signJwtToken(user.id, user.gmail), refeshToken: token}
+      delete user1.password
+      return {user1, accessToken: await this.signJwtToken(user1.id, user1.gmail), refeshToken: token}
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
     }
   }
 
-  async signJwtToken (id:number, gmail:string):Promise<string>{
+  async signJwtToken (id:string, gmail:string):Promise<string>{
     const payload ={
       sub: id,
       gmail
     }   
     const jwtString = await this.jwtService.signAsync(payload,{
-      expiresIn: '10m',
+      expiresIn: '365d',
       secret: this.configService.get('JWT_SECRET')
     })
     return jwtString
   }
- async refeshJwtToken (id:number, gmail:string):Promise<string>{
+
+  
+ async refeshJwtToken (id:string, gmail:string):Promise<string>{
     const payload ={
       sub: id,
       gmail

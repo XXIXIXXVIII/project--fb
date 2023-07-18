@@ -5,8 +5,9 @@ import ShotFooter from "../footer/ShotFooter";
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from "../../redux/hook";
 import { logoutRedux } from "../../redux/authSlice";
+import { currentUser } from "../../Dto/Dto";
 
-export default function SettingUserTippy() {
+export default function SettingUserTippy({currentUser}:{currentUser:currentUser}) {
 
   const distpatch = useAppDispatch()
   const handleLogout = ()=>{
@@ -16,9 +17,9 @@ export default function SettingUserTippy() {
   return (
     <div className="bg-white p-[16px] ">
       <div className="shadowUser bg-white w-[338px] p-2 rounded-lg ">
-        <Link to={'/user/1'} className="px-2 py-2 rounded-lg hover:bg-[rgba(0,0,0,0.05)] flex gap-2 items-center text-[15px] font-semibold cursor-pointer mb-1">
-          <Avatar size={"w-9"}/>
-          <div>Lalisa Manoban</div>
+        <Link to={`/user/${currentUser.id}`} className="px-2 py-2 rounded-lg hover:bg-[rgba(0,0,0,0.05)] flex gap-2 items-center text-[15px] font-semibold cursor-pointer mb-1">
+          <Avatar avarta={currentUser.avatar} size={"w-9 h-9"}/>
+          <div>{currentUser.firstName} {currentUser.lastName}</div>
         </Link>
         <div className="border border-gray-300"></div>
         <div className="px-2 py-2 rounded-lg hover:bg-[rgba(0,0,0,0.05)] flex gap-2 items-center text-[15px] font-semibold cursor-pointer my-1 text-blue-500">

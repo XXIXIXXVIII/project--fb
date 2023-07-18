@@ -11,13 +11,18 @@ export class AuthController{
   async login(@Body() body: LoginDTO, @Res() response:Response){
 
     const result = await this.authService.login(body)
-    response.cookie('jwt', result.refeshToken, { 
+    if(result){
+      response.cookie('jwt', result.refeshToken, { 
         httpOnly: true, 
         secure: false,
         path:"/",
         sameSite:"strict"
       });
-    return response.status(200).json(result) 
+      return  response.status(200).json(result) 
+    }else{
+      response.status(400).json('Email or password not found')
+    }
+  
   }
 
   @Post('signup')

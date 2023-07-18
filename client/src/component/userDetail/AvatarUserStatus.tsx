@@ -11,7 +11,7 @@ export default function AvatarUserStatus({
   sizeBig: number;
   avarta?:string
 }) {
-  console.log(avarta);
+
   return (
     <div
       style={{ border: `${border}px solid white`, width: `${size + sizeBig}px`, height:`${size + sizeBig}px` }}

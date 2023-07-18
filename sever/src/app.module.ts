@@ -6,7 +6,13 @@ import { User } from './typeorm/entity/User.entity';
 import { ConfigModule } from '@nestjs/config';
 import { Post } from './typeorm/entity/Post.entity';
 import { PostModule } from './post/post.module';
-import { Relation } from './typeorm/entity/Relation.entity';
+import { Page } from './typeorm/entity/Page.entity';
+import { Comment } from './typeorm/entity/Comment.entity';
+import { CommentModule } from './comment/comment.module';
+import { MediaPost } from './typeorm/entity/MediaPost.entity';
+import { ReComment } from './typeorm/entity/ReComment.entity';
+import { PageModule } from './page/page.module';
+
 
 @Module({
   imports: [
@@ -20,12 +26,15 @@ import { Relation } from './typeorm/entity/Relation.entity';
     username: 'root',
     password: '12345678',
     database:'fbproject',
-    entities: [User, Post],
-    synchronize: true
+    entities: [User, Post, Page, Comment, MediaPost, ReComment],
+    synchronize: true,
+    
   }),
   AuthModule,
   UserModule,
-  PostModule
+  PostModule,
+  CommentModule,
+  PageModule,
 ],
 })
 export class AppModule {}

@@ -1,19 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, PrimaryColumn } from 'typeorm'
 import { Post } from './Post.entity';
+import { Page } from './Page.entity';
+import { Comment } from './Comment.entity';
+import { MediaPost } from './MediaPost.entity';
+import { ReComment } from './ReComment.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity({name:'user'})
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number
+  @PrimaryColumn()
+  id: string = uuidv4()
 
   @Column()
-  firstName: string;
+  firstName: string
 
   @Column()
-  lastName: string;
+  lastName: string
 
   @Column({ unique: true})
-  gmail: string;
+  gmail: string
 
   @Column()
   password: string
@@ -51,14 +56,61 @@ export class User {
   @Column({nullable:true})
   from:string
 
-  @OneToMany(()=>Post, post=>post.user)
+  @Column({default:false})
+  isLogin:boolean
+
+  @OneToMany(()=>Post, post=>post.user, {onDelete:'CASCADE'})
   post: Post[]
 
-  @ManyToMany(()=>User, user=>user.relation)
-  @JoinTable({
-    name: 'relation',
-    joinColumn: {name: 'user_id', referencedColumnName:'id'},
-    inverseJoinColumn: { name: 'relation_id', referencedColumnName: 'id'},
-  })
-  relation: User[]
+  @OneToMany(()=>Post, post=>post.user, {onDelete:'CASCADE'})
+  page: Page[]
+
+  @ManyToMany(() => User, user => user.friends)
+  @JoinTable()
+  friends: User[]
+
+  @ManyToMany(() => User, user => user.request)
+  @JoinTable()
+  request: User[]
+
+  @ManyToMany(()=>Post, post=>post.like)
+  @JoinTable()
+  like: Post[]
+
+  @ManyToMany(()=>Post, post=>post.love)
+  @JoinTable()
+  love: Post[]
+
+  @ManyToMany(()=>Post, post=>post.haha)
+  @JoinTable()
+  haha: Post[]
+
+  @ManyToMany(()=>Post, post=>post.sad)
+  @JoinTable()
+  sad: Post[]
+
+  @ManyToMany(()=>Post, post=>post.wow)
+  @JoinTable()
+  wow: Post[]
+
+  @ManyToMany(()=>Post, post=>post.dear)
+  @JoinTable()
+  dear: Post[]
+
+  @ManyToMany(()=>Post, post=>post.angry)
+  @JoinTable()
+  angry: Post[]
+
+  @OneToMany(() => Comment, comment=>comment.user)
+  @JoinTable()
+  comments: Comment[]
+
+  @OneToMany(() => ReComment, reComment=>reComment.user)
+  @JoinTable()
+  reComments: ReComment[]
+
+  @OneToMany(() => MediaPost, mediaPost=>mediaPost.user)
+  @JoinTable()
+  mediaPost: MediaPost[]
+
 }

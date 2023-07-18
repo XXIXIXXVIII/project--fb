@@ -24,8 +24,6 @@ export default function Signup() {
 
   const distpatch = useAppDispatch()
 
-  console.log("222222",firstName, lastName, gmail, birthday, password, sex);
-
   useEffect(()=>{
     if(currentUser){
       if(Object.keys(currentUser).length>0){navigate('/')}
@@ -71,6 +69,7 @@ export default function Signup() {
           </div>
           <div className="mt-3">
             <TippyInput
+            type="password"
               placeholder={"Mật khẩu mới"}
               content={
                 "Nhập mật khẩu bao gồm 6 ký tự bao gồm số, chữ cái và dấu chấm câu như ( ! và & )."

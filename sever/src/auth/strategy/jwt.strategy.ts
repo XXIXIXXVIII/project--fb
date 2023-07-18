@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       secretOrKey: configService.get('JWT_SECRET'),
     })
   }
-  async validate(payload:{sub:number, gmail:string}){
+  async validate(payload:{sub:string, gmail:string}){
     const user = await this.usersRepository.findOne({where:{id: payload.sub}})
     delete user.password
     return user

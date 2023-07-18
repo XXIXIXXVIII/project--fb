@@ -11,7 +11,7 @@ export default function NewPost({parendOffCreatePost}:{parendOffCreatePost:()=>v
     <div className="rounded-xl bg-white border border-gray-200 shadow-xl">
       <div className="px-4 py-3">
         <div className="flex gap-2 items-center">
-          <Avatar size={"w-10"} avarta={currentUser.avatar}/>
+          <Avatar size={"w-10 h-10"} avarta={currentUser.avatar}/>
           <div onClick={handleShowCreatePost} className="px-3 py-2 bg-gray-100 rounded-3xl w-full cursor-pointer text-[17px] text-[#65676B]">{currentUser.firstName} ơi bạn đang nghĩ gì thế?</div>
         </div>
         <div className="flex justify-between items-center mt-3 p-2 border-t border-gray-300">

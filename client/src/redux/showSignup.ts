@@ -5,7 +5,7 @@ interface State {
 }
 
 const initialState: State = {
-  showSignup: undefined,
+  showSignup: false,
 };
 
 const showSignupSlice = createSlice({

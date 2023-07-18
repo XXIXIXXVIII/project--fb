@@ -1,16 +1,43 @@
 import FriendlistNavBar from "../../component/friends/FriendlistNavBar";
 import FriendsNavBar from "../../component/friends/FriendsNavBar";
 import Home from "../../component/friends/Home";
-import ListNavBar from "../../component/friends/ListNavBar";
+import ListAllFriendsNavBar from "../../component/friends/ListAllFriendsNavBar";
 import RequestNavBar from "../../component/friends/RequestNavBar";
 import SuggestionsNavbar from "../../component/friends/SuggestionsNavbar";
 import NavBarLayout from "../../component/navBar/NavBarLayout";
 import { useParams } from "react-router-dom";
 import UserDetail from "../userDetail/UserDetail";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../redux/hook";
+import privateAxios from "../../fetchConfig/privateAxios";
 
 export default function Friend() {
-  const { nav } = useParams();
+  const { nav } = useParams()
+  const [reqFriendsData, setReqFriendsData] = useState([])
+  const [idFriends, setIdFriends] = useState<number|null|undefined>()
+  const id = useAppSelector(state=>state.auth.currentUser.id)
 
+  const fetchReqFriend = async()=>{
+    try {
+      const result = await privateAxios.get('user/friends/request')
+      setReqFriendsData(result.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    if(!nav||nav=='requests'){
+      fetchReqFriend()
+    }
+
+  },[nav])
+
+  const resetStatus = ()=>{
+    fetchReqFriend()
+  }
+
+console.log(reqFriendsData);
   return (
     <div className="flex">
       <div className="basis-[23.5%]"></div>
@@ -19,12 +46,12 @@ export default function Friend() {
           <>
             {nav === undefined && (
               <div>
-                <FriendsNavBar />
+                <FriendsNavBar/>
               </div>
             )}
             {nav === "requests" && (
               <div>
-                <RequestNavBar />
+                <RequestNavBar reqFriendsData={reqFriendsData} setIdFriends={setIdFriends}/>
               </div>
             )}
             {nav === "suggestions" && (
@@ -34,7 +61,7 @@ export default function Friend() {
             )}
             {nav === "list" && (
               <div>
-                <ListNavBar />
+                <ListAllFriendsNavBar setIdFriends={setIdFriends} id={id}/>
               </div>
             )}
             {nav === "birthdays" && (
@@ -53,22 +80,22 @@ export default function Friend() {
       <div className="flex-1">
         {nav === undefined && (
           <div>
-            <Home />
+            <Home reqFriendsData={reqFriendsData} setIdFriends={setIdFriends}/>
           </div>
         )}
-        {nav === "requests"&& (
+        {nav === "requests"&& idFriends && (
           <div>
-            <UserDetail />
+            <UserDetail idFriends={idFriends} resetStatus={resetStatus}/>
           </div>
         )}
-        {nav === "suggestions"&& (
+        {nav === "suggestions"&& idFriends && (
           <div>
-            <UserDetail />
+            <UserDetail idFriends={idFriends}/>
           </div>
         )}
-        {nav === "list"&& (
+        {nav === "list"&& idFriends && (
           <div>
-            <UserDetail />
+            <UserDetail idFriends={idFriends}/>
           </div>
         )}
       </div>

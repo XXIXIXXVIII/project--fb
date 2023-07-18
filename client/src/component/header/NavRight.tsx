@@ -14,7 +14,7 @@ import { useAppSelector } from '../../redux/hook';
 export default function NavRight() {
   const [showSettingUserTippy, setShowSettingUserTippy] = useState(false);
   const [showMenuTippy, setShowMenuTippy] = useState(false);
-  const avatar = useAppSelector((state) => state.auth.currentUser?.avatar);
+  const currentUser = useAppSelector((state) => state.auth.currentUser);
   
 
   return (
@@ -51,12 +51,12 @@ export default function NavRight() {
     visible={showSettingUserTippy}
      render={attrs => (
       <div className="box rounded-lg w-[368px] -mt-2 border border-gray-200 overflow-hidden shadow-2xl" {...attrs}>
-        <SettingUserTippy />
+        <SettingUserTippy currentUser={currentUser}/>
       </div>
     )}          
     >
       <div onClick={() => setShowSettingUserTippy(!showSettingUserTippy)}>
-        <Avatar size={"w-10"} avarta={avatar}/>
+        <Avatar size={"w-10 h-10"} avarta={currentUser?.avatar}/>
       </div>
     </Tippy>
   </div>

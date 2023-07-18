@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import '../../index.css'
 import newFeed from "../../assets/Home/newFeed.svg";
 import newFeedPick from "../../assets/Home/newFeedPick.svg";
 import reels from "../../assets/Home/Reels.svg";
@@ -12,21 +12,11 @@ import CreatePost from "../../component/abc/CreatePost";
 import privateAxios from "../../fetchConfig/privateAxios";
 import Loading from "../../component/Alert/Loading";
 import Success from "../../component/Alert/Success";
+import { PostDto } from "../../Dto/Dto";
+import PostDetail from "../../component/abc/PostDetail";
+import { useAppSelector } from "../../redux/hook";
 
-export interface PostDto {
-  id: number,
-  typePost:string,
-  content:string,
-  createdAt:string,
-  view:number,
-  background:string
-  user:{
-    id:number,
-    avatar:string,
-    firstName:string,
-    lastName:string
-  }
-}
+
 
 const icon = [
   { icon: newFeed, iconPick: newFeedPick, name: "Tin", tippy: "News feed" },
@@ -39,9 +29,11 @@ console.log(jwtTokent);
 export default function Home() {
   const [pick, setPick] = useState("/src/assets/Home/newFeed.svg");
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const [dataPost, setDataPost] = useState<PostDto[]>();
+  const [successCreatePost, setSuccessCreatePost] = useState<boolean|undefined>(false);
+  const [dataPost, setDataPost] = useState<[]>();
   const [loaddingData, setLoaddingData] = useState(true);
-  const [successCreatePost, setSuccessCreatePost] = useState(false);
+  const postId = useAppSelector(state=>state.showDetailPost.postId)
+  
 
   const fetchPost = async () => {
     try {
@@ -52,6 +44,7 @@ export default function Home() {
       console.log(error);
     }
   };
+  console.log(dataPost);
   useEffect(() => {
     const timeout = setTimeout(() => {
       fetchPost();
@@ -81,8 +74,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {postId!==0&&<PostDetail/>}
       {successCreatePost&&<div className="fixed w-1/3 -translate-x-1/2 left-1/2 top-[15%] z-50"><Success title="Tạo bài post thành công" /></div>}
-      {loaddingData&&<div className="fixed left-1/2 -translate-x-1/2 top-[13%]"><Loading/></div>}
+      {loaddingData&&<div className="fixed left-1/2 -translate-x-1/2 top-[13%] z-20"><Loading/></div>}
       {showCreatePost && (
         <div>
           <CreatePost parendOffCreatePost={parendOffCreatePost} fetchData={fetchPost} setSuccessCreatePost={setSuccessCreatePost}/>
@@ -115,9 +109,9 @@ export default function Home() {
           <NewPost parendOffCreatePost={parendOffCreatePost} />
         </div>
         <div className="mt-6">
-          {dataPost?.map((item) => (
-            <div key={item.id}>
-              <Post post={item} />
+          {dataPost&&dataPost?.map((item:PostDto[], index:number) =>(
+            <div key={index}>
+              {item.map((item:PostDto)=><div className="mt-6 rounded-xl overflow-hidden shadow-md" key={item.id}> <Post post={item} /></div>)}
             </div>
           ))}
         </div>

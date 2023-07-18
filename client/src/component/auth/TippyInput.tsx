@@ -8,16 +8,16 @@ export default function TippyInput({
   placeholder,
   setValue,
   value,
+  type
 }: {
   content: string;
   placeholder: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   value: string;
+  type?:string
 }) {
   const [show, setShow] = useState(false);
   const [validate, setValidate] = useState(false);
- 
-  console.log(validate);
 
   return (
     <div className="relative">
@@ -28,6 +28,7 @@ export default function TippyInput({
         content={content}
       >
         <input
+        type={type||"text"}
           onChange={(e) => setValue(e.target.value)}
           onFocus={() => {
             setShow(true);

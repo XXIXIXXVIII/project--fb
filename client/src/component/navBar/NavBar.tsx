@@ -6,6 +6,7 @@ import "../home/index.css"
 import ShotFooter from "../footer/ShotFooter";
 import Avatar from "../abc/Avatar";
 import { useAppSelector } from "../../redux/hook";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [numberNav, setNumberNav] = useState(6);
@@ -19,11 +20,12 @@ export default function NavBar() {
       <div
             className="flex items-center pl-2 gap-2 h-11 hover:bg-gray-200 font-medium text-[15px] rounded cursor-pointer mt-2"
           >
-            <Avatar size={'w-9'} avarta={avatar}/>
+            <Avatar size={'w-9 h-9'} avarta={avatar}/>
             {curentUser?.firstName} {curentUser?.lastName}
           </div>
         {navBar.slice(0, numberNav).map((item, index) => (
-          <div
+          <Link
+          to={`${item.link}`}
             key={index}
             className="flex items-center pl-2 gap-2 h-11 hover:bg-gray-200 font-medium text-[15px] rounded cursor-pointer mt-2"
           >
@@ -31,7 +33,7 @@ export default function NavBar() {
               <img className="object-cover w-full" src={item.img} />
             </div>
             {item.name}
-          </div>
+          </Link>
         ))}
         {numberNav === 6 && (
           <div

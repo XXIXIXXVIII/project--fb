@@ -5,15 +5,22 @@ export const navBar: { img: string; name: string; link?: string }[] = [
   {
     img: "https://cdn4.iconfinder.com/data/icons/facebook-and-social-media-2/64/Facebook_and_Social_Media-11-512.png",
     name: "Bạn bè",
+    link:"/friends"
   },
-  { img: videosPick, name: "Watch" },
+  { img: videosPick, name: "Watch" ,    link:"/watch"},
   {
     img: "https://static.xx.fbcdn.net/rsrc.php/v3/yT/r/3dN1QwOLden.png",
     name: "Bảng feed (Gần đây nhất)",
+
   },
   {
     img: "https://icon-library.com/images/group-icon-png/group-icon-png-15.jpg",
     name: "Nhóm",
+  },
+  {
+    img: "https://cdn-icons-png.flaticon.com/512/5705/5705771.png",
+    name: "Trang",
+    link: '/page'
   },
   { img: shopsPick, name: "Marketplace" },
   {
@@ -67,33 +74,7 @@ export const backGround = [
   {id:9, bgImgUrl: 'url("https://scontent.fhan3-1.fna.fbcdn.net/v/t39.16376-6/29160588_435684666861727_3152817560781586432_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=a86453&_nc_ohc=xGf68MDbZC0AX9FM4zC&_nc_ht=scontent.fhan3-1.fna&oh=00_AfBuLljWZbIAk6noDTFFx6UVaq1KB-8MTdITstsA8098wQ&oe=64A3CF47")'},
 ]
 
-export const pushCreatePost = [
-  {
-    id: 1,
-    urlImg: "https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/a6OjkIIE-R0.png",
-    title: "Ảnh/video",
-  },
-  {
-    id: 2,
-    urlImg: "https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/MqTJr_DM3Jg.png",
-    title: "Gắn thẻ người khác",
-  },
-  {
-    id: 3,
-    urlImg: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/yMDS19UDsWe.png",
-    title: "Cảm xúc/hoạt động",
-  },
-  {
-    id: 4,
-    urlImg: "https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/uywzfiZad5N.png",
-    title: "Checkin",
-  },
-  {
-    id: 5,
-    urlImg: "https://static.xx.fbcdn.net/rsrc.php/v3/yY/r/CenxFlWjtJO.png",
-    title: "Sự kiện trong đời",
-  },
-];
+
 
 export const iconFace = [
   { urlIcon:'https://static.xx.fbcdn.net/images/emoji.php/v9/t5f/1.5/30/1f600.png'},

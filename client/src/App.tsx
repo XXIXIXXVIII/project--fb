@@ -12,7 +12,6 @@ function App() {
   return (
     <Router>
       <Routes>
-
         {currentUser && Object.keys(currentUser).length > 0&&
           <Route path='/' element={<DefaultLayout><Home/></DefaultLayout>}/>}
 

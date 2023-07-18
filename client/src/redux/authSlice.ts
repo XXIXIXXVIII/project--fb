@@ -1,18 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import publicAxios from "../fetchConfig/publicAxios";
-
-interface State {
+import privateAxios from "../fetchConfig/privateAxios";
+export interface StateCurrentUser {
   currentUser:{
+    id?:number,
     avatar?: string,
     firstName?:string,
-    lastName?:string
+    lastName?:string,
+    role?:string
+    coverImage?:string
   }
   isFetching:boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error:any,
 }
 
-const initialState : State = {
+const initialState : StateCurrentUser = {
   currentUser:{},
   isFetching: false,
   error: null,
@@ -56,12 +59,32 @@ const authSlice = createSlice({
         state.isFetching = false
         state.error = null
       })
+
+
+      .addCase(loginPage.pending,(state)=>{
+        state.isFetching = true
+        state.error = null
+      })
+      .addCase(loginPage.fulfilled,(state, action)=>{
+        state.currentUser = action.payload
+        state.isFetching = false
+        state.error = null
+      })
+
+
+      .addCase(avartaRedux.fulfilled,(state, action)=>{
+        state.currentUser.avatar = action.payload
+      })
+
+      .addCase(coverImgRedux.fulfilled,(state, action)=>{
+        state.currentUser.coverImage = action.payload
+      })
 });
 
 export const loginRedux = createAsyncThunk(
   "auth/login",
   async ({ gmail, password }: { gmail: string; password: string }) => {
-    console.log( gmail, password);
+    
     try {
       const result = await publicAxios.post("/auth/login", { gmail, password });
       const data = result.data;
@@ -114,6 +137,23 @@ export const signupRedux = createAsyncThunk(
     
   }
 );
+
+export const loginPage = createAsyncThunk('auth/loginPage', async ({pageId}:{pageId:number})=>{
+  try {
+    const result = await privateAxios.get(`page/${pageId}`)
+    return result.data
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+export const avartaRedux = createAsyncThunk('update/avarta',({avarta}:{avarta:string})=>{
+  return avarta
+})
+
+export const coverImgRedux = createAsyncThunk('update/coverImg',({coverImg}:{coverImg:string})=>{
+  return coverImg
+})
 
 export const resetAuthRedux = createAsyncThunk("auth/resetAuthRedux", () => {
   return
